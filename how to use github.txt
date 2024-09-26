@@ -1,0 +1,43 @@
+
+
+git installation:
+
+1. install git on your computer
+2. create a new folder where you want to add git repo.
+3. navigate to this folder in your console, i.e. open console and type cd "path to repo folder "
+
+type "git init" to initialize a new git repo in your folder.
+
+type git config --global user.email  "youreMAILHEREE@gmail.com"  
+
+this should be the email to your GitHub account.
+
+type git config --global user.password "1234321"
+
+this should be the password to your GitHub account. 
+
+type git remote add origin https://github.com/user/repo.git
+the link should be the link to the online repo. 
+
+next, run the command, 
+ 
+git fetch origin master
+
+this should download everything from the repo
+
+after updating any file in the GitHub, run the following commands:
+
+
+git add .
+
+git commit -m "default commit"
+
+git push origin master
+
+
+the text in the commit command is a message that you can change to reflect whatever you've done during the update, 
+ideally this should not be default commit so that when you are debugging you can track the specific update which 
+is giving you problems/you want to restore. 
+
+
+if you have any questions, give me a holler. 
