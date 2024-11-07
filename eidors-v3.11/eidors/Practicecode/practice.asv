@@ -99,13 +99,12 @@ reconst= inv_solve(i_mdl, data_1k0, data_1k2);
 %bkgnd= 1;
 
 %img= mk_image(resistor.fwd_model, bkgnd);
-%vh= fwd_solve( img );
+
 
 %show_fem(img,bkgnd);
 
 
-% I guess the show fem function images a image type object,
-% this is pulling errors for some reason 
+% Tryin
 
 
 

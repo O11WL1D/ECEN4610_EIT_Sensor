@@ -21,5 +21,7 @@ load eidors2d_bubble.mat
 d1= bubble2(1280+(-255:0));
 d2= bubble1(1280+(-255:0));
 
+
+
 img= inv_solve( inv2d, d1, d2);
 show_fem(img);
