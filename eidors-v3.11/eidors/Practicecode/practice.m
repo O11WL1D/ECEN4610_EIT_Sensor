@@ -83,12 +83,13 @@ reconst= inv_solve(i_mdl, data_1k0, data_1k2);
 
 
 
-
 % !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BASIC CODE TESTING !!!!!!!!!!!!!!!!!!!
 
 
 
+ disp(data_1k0)
 
+ disp(data_1k0.meas')
 
 
 
