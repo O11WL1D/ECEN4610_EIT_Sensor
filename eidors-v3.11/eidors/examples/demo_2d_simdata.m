@@ -28,21 +28,25 @@ homg_data=fwd_solve( homg_img);
 %mat([65,81,82,101,102,122])=2;
 
 
+%mat([288])=2;
 
-mat([288])=50;
+%mat([576])=2;
+%mat([1])=2;
+%mat([10])=2;
 
 
-mat([576])=2;
+%mat([1:10])=2;
 
-mat([1])=2;
+%mat([1])=2;
+%mat([2])=2;
+%mat([3])=2;
+%mat([4])=2;
 
-mat([10])=10;
-
+mat([576:400])=2;
 
 
 L= length(mat)
 disp(L)
-
 
 inh_img= eidors_obj('image', 'homogeneous image', ...
                      'elem_data', mat, ...
