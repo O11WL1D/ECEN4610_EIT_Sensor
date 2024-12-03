@@ -214,17 +214,22 @@ if __name__ == '__main__':
 
     file = open('data.txt', 'r')
     data = file.read()
-    print(data)
-
-    print(data[0:6])
+    
+    #print(data)
+    #print(data[0:6])
     #print(data[6])
     
+    #-----------------------------------------------------------INPUT DATA SIZE HERE: 
+    #this code will now feature the following assumptions:
+    #n=number decimal size (this assumes negative sign and decimal point are considered a number and included in this count.)
+    #n=size of datapoint+1    
 
     n=12
     n=n+1
-    print(data[0:n])
-    t=float(data[0:n])
-    print("float convo test "+ str(t))
+    
+    #print(data[0:n])
+    #t=float(data[0:n])
+    #print("float convo test "+ str(t))
 
     
     head=0
@@ -248,9 +253,6 @@ if __name__ == '__main__':
     #print(data[6])
     #print(data[7])
 
-    #this code will now feature the following assumptions:
-    #n=number decimal size (this assumes negative sign and decimal point are considered a number and included in this count.)
-    #n=size of datapoint+1    
 
 
     
