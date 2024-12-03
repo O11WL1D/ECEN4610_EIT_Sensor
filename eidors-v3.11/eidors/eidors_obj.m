@@ -16,7 +16,7 @@ function [obj_id, extra_out] = eidors_obj(type,name, varargin )
 %
 % this will get or set the values of cached properties of the object.
 %
-%    example: % set jacobian
+%    example: % set jacobianstim
 %        obj_id = eidors_obj('set-cache',cache_obj, 'jacobian', J);
 %
 %    example: % get jacobian or '[]' if not set

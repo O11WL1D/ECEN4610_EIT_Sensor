@@ -12,6 +12,8 @@ from pyeit.mesh.wrapper import PyEITAnomaly_Circle
 
 import average  #Untuk merata-rata satu data aja
 
+import pandas as pd
+
 
 
 # Generate random positions within a unit circle
@@ -21,6 +23,7 @@ def random_position_within_circle(radius=1.0):
     x = r * np.cos(angle)
     y = r * np.sin(angle)
     return np.array([x, y])
+
 
 # Simulate RSSI readings based on object position
 def simulate_rssi_readings(sensor_positions, object_position, P_ref=-40, n=2):
@@ -193,9 +196,72 @@ if __name__ == '__main__':
     object_position = random_position_within_circle()
     print("Object Position:", object_position)
 
+
+
     # Simulate RSSI readings
     rssi_readings = simulate_rssi_readings(sensor_positions, object_position, P_ref=-40, n=2)
+
     print("Simulated RSSI Readings (dBm):", rssi_readings)
+
+
+
+    #data = pd.read_csv('data.txt', delimiter='\t')
+    #print(data)
+    #print(data[0])
+
+    #print("Data item 0 " + data[0])
+
+
+    file = open('data.txt', 'r')
+    data = file.read()
+    print(data)
+
+    print(data[0:6])
+    #print(data[6])
+    
+
+    n=12
+    n=n+1
+    print(data[0:n])
+    t=float(data[0:n])
+    print("float convo test "+ str(t))
+
+    
+    head=0
+    tail=n
+
+    print("START SEQENTIAL DATA READ")
+    temparray=[]
+
+    for x in range(4):
+        print(x)
+        print(data[head:tail])
+        temparray.append(data[head:tail])
+        #print("head :" + str(head))
+        #print("tail : "+ str(tail))
+        head=tail
+        tail=tail+n
+
+
+
+
+    #print(data[6])
+    #print(data[7])
+
+    #this code will now feature the following assumptions:
+    #n=number decimal size (this assumes negative sign and decimal point are considered a number and included in this count.)
+    #n=size of datapoint+1    
+
+
+    
+    #rssi_readings=np.array(data)
+
+ 
+
+
+
+    rssi_readings=np.array(temparray)
+
 
     # Visualize the setup
     # plot_sensors_and_object(sensor_positions, object_position, rssi_readings)
