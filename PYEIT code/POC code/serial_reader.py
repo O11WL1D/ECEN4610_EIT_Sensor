@@ -32,7 +32,7 @@ while True:
     print("data5", data5)
 
 
-    f = open("arduinooutput.txt", "w")
+    f = open("data.txt", "w")
     f.write(data2+"\n"+data3+"\n"+data4+"\n"+data5)
     f.close()
 
