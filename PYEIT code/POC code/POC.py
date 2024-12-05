@@ -16,6 +16,21 @@ import pandas as pd
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Generate random positions within a unit circle
 def random_position_within_circle(radius=1.0):
     angle = np.random.uniform(0, 2 * np.pi)
@@ -23,6 +38,41 @@ def random_position_within_circle(radius=1.0):
     x = r * np.cos(angle)
     y = r * np.sin(angle)
     return np.array([x, y])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Simulate RSSI readings based on object position
@@ -46,11 +96,33 @@ def simulate_rssi_readings(sensor_positions, object_position, P_ref=-40, n=2):
         if distance == 0:  # Avoid log(0)
             distance = 0.01  # Set a small value to approximate close proximity
         # Compute RSSI using the log-distance path loss model
+
         rssi = P_ref - 10 * n * np.log10(distance)
         rssi_readings.append(rssi)
 
     print("\n--------readings:------", rssi_readings, "\n-------------------")
     return np.array(rssi_readings)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def plot_sensors_and_object(sensor_positions, object_position, rssi_readings):
@@ -70,6 +142,10 @@ def plot_sensors_and_object(sensor_positions, object_position, rssi_readings):
     for i, (x, y) in enumerate(sensor_positions):
         ax.annotate(f'{rssi_readings[i]:.1f} dBm', xy=(x, y), textcoords="offset points", xytext=(5, 5), color='blue')
 
+
+
+
+
     # Plot object position
     ax.scatter(object_position[0], object_position[1], c='green', label='Object', s=100)
 
@@ -78,6 +154,27 @@ def plot_sensors_and_object(sensor_positions, object_position, rssi_readings):
     ax.legend()
     plt.grid(True)
     plt.show()
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class EIT_reconstruct:
     def __init__(self, data, reference=None, use_ref=0, n_el=4, use_shape=3, object_position=None):
@@ -187,6 +284,33 @@ class EIT_reconstruct:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
  # Generate random sensor positions
     sensor_positions = [random_position_within_circle() for _ in range(4)]
@@ -194,6 +318,10 @@ if __name__ == '__main__':
 
     # Place the object randomly within the circle
     object_position = random_position_within_circle()
+
+
+    object_position=[0,0]
+
     print("Object Position:", object_position)
 
 

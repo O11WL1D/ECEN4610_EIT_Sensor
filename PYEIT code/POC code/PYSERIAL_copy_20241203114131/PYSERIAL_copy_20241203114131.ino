@@ -8,10 +8,10 @@ void loop() {
     Serial.print("INCOMING DATA: "); // Optionally, echo the data back
     Serial.println(data);
 
-    Serial.println("-46.60988228");
-    Serial.println("-41.99007778");
-    Serial.println("-42.94571846");
-    Serial.println("-35.48271961");
+    Serial.println("-35.89551149");
+    Serial.println("-34.82145407");
+    Serial.println("-36.75052789");
+    Serial.println("-35.40157074");
     
 
   }
