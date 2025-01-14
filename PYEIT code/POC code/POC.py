@@ -214,9 +214,11 @@ class EIT_reconstruct:
         protocol_obj = protocol.create(self.n_el, dist_exc=1, step_meas=1, parser_meas="std")
         print("Mesh done...")
 
+
         """ 2. Naive Inverse Solver Using Back-Projection """
         eit = bp.BP(mesh_obj, protocol_obj)
         eit.setup(weight="simple")
+
 
         """ 3. Input Data """
         if self.use_ref == 1:
@@ -226,16 +228,25 @@ class EIT_reconstruct:
 
         print("Input Data Done...")
 
+
         """ 4. Inverse Problem """
         node_ds = 192.0 * eit.solve(self.data, referenceData, normalize=True)
+
+
 
         # Extract node, element, alpha
         pts = mesh_obj.node
         tri = mesh_obj.element
 
+
+
+
         """ 5. Plot Results """
         print("Plotting result...")
         fig, ax1 = plt.subplots(1, 1, constrained_layout=True, figsize=(6, 6))
+
+
+
 
         # Reconstructed conductivity map
         ax1.set_title(r"Reconstituted $\Delta$ Conductivities")
@@ -250,6 +261,7 @@ class EIT_reconstruct:
             cmap=plt.cm.twilight_shifted,
             norm=colors.CenteredNorm(),
         )
+
 
         # Annotate electrodes
         x, y = pts[:, 0], pts[:, 1]
@@ -266,8 +278,13 @@ class EIT_reconstruct:
             cmap=plt.cm.twilight_shifted,
             norm=colors.CenteredNorm(),
         ))
+
+
          # Plot electrodes as red dots
         ax1.scatter(pts[el_pos, 0], pts[el_pos, 1], color="red", label="Electrodes")
+
+
+
 
         # Plot object position as a green dot
         if self.object_position is not None:
@@ -405,3 +422,5 @@ if __name__ == '__main__':
 
     reconstruct = EIT_reconstruct(data=data, reference=reference, use_ref=1, n_el=4, object_position=object_position)
     reconstruct.Reconstruct()
+
+
