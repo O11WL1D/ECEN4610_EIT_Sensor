@@ -91,6 +91,10 @@ def simulate_rssi_readings(sensor_positions, object_position, P_ref=-40, n=2):
     """
     rssi_readings = []
     for sensor in sensor_positions:
+
+        print("SENSOR POSITION")
+        print(sensor)
+
         # Calculate the distance between the object and the sensor
         distance = np.linalg.norm(sensor - object_position)
         if distance == 0:  # Avoid log(0)
@@ -177,13 +181,17 @@ def plot_sensors_and_object(sensor_positions, object_position, rssi_readings):
 
 
 class EIT_reconstruct:
-    def __init__(self, data, reference=None, use_ref=0, n_el=4, use_shape=3, object_position=None):
+    def __init__(self, data, reference=None, use_ref=0, n_el=4, use_shape=2, object_position=None):
         self.n_el = n_el  # Number of electrodes
         self.use_shape = use_shape
         self.data = data
         self.reference = reference
         self.use_ref = use_ref
         self.object_position = object_position  # Store object position in the instance
+        
+
+
+
 
     def Reconstruct(self):
         """ 0. Build Mesh """
@@ -202,22 +210,45 @@ class EIT_reconstruct:
                 return 0.2 * (2.0 - r2)
 
             # Build fix points
+            print("build fix points electrode count")
+            print(self.n_el)
+            #num electodes is 4 here. 
+
             p_fix = shape.fix_points_circle(ppl=self.n_el)
             el_pos = np.arange(self.n_el)
+
+
+
+
+
+
+
+
 
             # Build triangle mesh
             mesh_obj = mesh.create(fd=_fd, fh=_fh, p_fix=p_fix, h0=0.024)
 
+
+
+
         el_pos = mesh_obj.el_pos
+
+
+
+
 
         """ 1. FEM Forward Simulations """
         protocol_obj = protocol.create(self.n_el, dist_exc=1, step_meas=1, parser_meas="std")
         print("Mesh done...")
 
 
+
+
         """ 2. Naive Inverse Solver Using Back-Projection """
         eit = bp.BP(mesh_obj, protocol_obj)
         eit.setup(weight="simple")
+
+
 
 
         """ 3. Input Data """
@@ -278,6 +309,9 @@ class EIT_reconstruct:
             cmap=plt.cm.twilight_shifted,
             norm=colors.CenteredNorm(),
         ))
+
+
+
 
 
          # Plot electrodes as red dots
@@ -424,3 +458,9 @@ if __name__ == '__main__':
     reconstruct.Reconstruct()
 
 
+
+
+#error message :Mesh done...
+#C:\Users\dudkr\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pyeit\eit\fem.py:117: UserWarning: The mesh use 16 electrodes, and the protocol use only 4 electrodes
+#  self._check_mesh_protocol_compatibility(mesh, protocol)
+#Input Data Done...
