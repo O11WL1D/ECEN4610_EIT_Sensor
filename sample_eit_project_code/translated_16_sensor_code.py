@@ -13,7 +13,7 @@ from pyeit.mesh.wrapper import PyEITAnomaly_Circle
 import average  # For averaging a single dataset
 
 class EIT_reconstruct:
-    def __init__ (self, data, reference = None, use_ref = 0, n_el = 16, use_shape = 3):
+    def __init__ (self, data, reference = None, use_ref = 0, n_el = 4, use_shape = 3):
         self.n_el = n_el  # number of electrodes
         self.use_shape = use_shape
         self.data = data
