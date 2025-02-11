@@ -155,9 +155,12 @@ class EIT_reconstruct:
         #fig.savefig('ReferensiRATARATA.png', dpi=96, bbox_inches='tight')
 
 if __name__ == '__main__':
-    reference = [1.809055, 0.8100247, 0.3967621, 0.3232599]
+   
 
-    data = [1.650988, 1.650988, 1.650988, 1.650988]
+    
+    reference = [1, 1, 1, 1]
+    data = [1,1,1,20]
+
 
 
     print("datalen")
