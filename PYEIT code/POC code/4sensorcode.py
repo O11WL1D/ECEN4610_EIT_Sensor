@@ -223,7 +223,7 @@ if __name__ == '__main__':
 
 
     for x in range(4):
-        data[x]=(float)(temparray[x][0:6]);
+        data[x]=(float  )(temparray[x][0:6]);
     
 
     #data = np.array(temparray)

@@ -14,10 +14,12 @@ void loop() {
      if (buttonState == LOW){
 
 
-    Serial.println("-35.89551149");
-    Serial.println("-34.82145407");
-    Serial.println("-36.75052789");
-    Serial.println("-35.40157074");
+    Serial.println("1");
+ 
+    Serial.println("-10.89551149");
+    Serial.println("-10.82145407");
+    Serial.println("-10.75052789");
+    Serial.println("-10.40157074");
     
     delay(1000);
      }
