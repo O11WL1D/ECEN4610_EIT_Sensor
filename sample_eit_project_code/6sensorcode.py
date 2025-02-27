@@ -12,33 +12,8 @@ from pyeit.mesh.wrapper import PyEITAnomaly_Circle
 
 import average  #Untuk merata-rata satu data aja
 
-import serial
-import time
-
-
-
-from tkinter import *
-import sys
-import os
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class EIT_reconstruct:
-    def __init__ (self, data, reference = None, use_ref = 0, n_el = 4, use_shape = 2):
+    def __init__ (self, data, reference = None, use_ref = 0, n_el = 6, use_shape = 2):
         self.n_el = n_el  # nb of electrodes
         self.use_shape = use_shape
         self.data = data
@@ -182,44 +157,18 @@ class EIT_reconstruct:
 if __name__ == '__main__':
    
 
-
-
-
-
-
-
-
-    
-    file = open('data.txt', 'r')
-    data = file.read()
-    
-    
-    n=12
-    n=n+1
-    
-
-    
-    
-    head=0
-    tail=n
-
-    print("START SEQENTIAL DATA READ")
-    temparray=[]
-
-    for x in range(12):
-        print(x)
-        print(data[head:tail])
-        temparray.append(data[head:tail])
-        #print("head :" + str(head))
-        #print("tail : "+ str(tail))
-        head=tail
-        tail=tail+n
-
-
-
     
     reference = [1, 1, 1, 1]
-    data = np.array(temparray)
+    data = [20,20,6,20]
+
+
+    reference= [0.1] * 18
+    data=[2.5]* 18
+
+    data[17]=1;
+    data[16]=1;
+    data[15]=1;
+    data[14]=1;
 
 
 
@@ -229,51 +178,5 @@ if __name__ == '__main__':
     #data = [0.55] * len(data)  # Replace with 0.55
 
 
-
-
-
-
-def helloCallBack():
-    print("TESTING!")
-
-
-    #read values from arduino serial monitor.
-
-
-
-    reconstruct = EIT_reconstruct(data=data, reference=reference, use_ref=1, n_el=4)
-    reconstruct.Reconstruct()
-
-
-
-
-
-
-
-
-
-
-from PIL import ImageTk, Image
-
-root = Tk()
-root.title('WELCOME TO PYEIT!!!!!')
-
-# Create and pack the button properly
-button = Button(root, text='Begin scan', width=25, command=helloCallBack)
-button.pack(pady=10)  # Add some padding for better UI
-
-# Create canvas
-canvas = Canvas(root, width=1000, height=500)
-canvas.pack()
-
-# Load image
-img = ImageTk.PhotoImage(Image.open("gui.jpg"))
-root.img = img  # Keep reference to prevent garbage collection
-canvas.create_image(20, 20, anchor=NW, image=img)
-
-root.mainloop()
-
-
-
-
-
+reconstruct = EIT_reconstruct(data=data, reference=reference, use_ref=1, n_el=6)
+reconstruct.Reconstruct()

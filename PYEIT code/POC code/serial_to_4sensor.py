@@ -12,6 +12,25 @@ from pyeit.mesh.wrapper import PyEITAnomaly_Circle
 
 import average  #Untuk merata-rata satu data aja
 
+import serial
+import time
+
+
+
+from tkinter import *
+import sys
+import os
+
+
+
+
+
+
+
+
+
+
+
 class EIT_reconstruct:
     def __init__ (self, data, reference = None, use_ref = 0, n_el = 4, use_shape = 2):
         self.n_el = n_el  # nb of electrodes
@@ -157,9 +176,55 @@ class EIT_reconstruct:
 if __name__ == '__main__':
    
 
+
+
+
+
+
+
+
+    
+    file = open('data.txt', 'r')
+    data = file.read()
+    
+    
+    n=12
+    n=n+1
+    
+
+    
+    
+    head=0
+    tail=n
+
+    print("START SEQENTIAL DATA READ")
+    temparray=[]
+
+    for x in range(4):
+        print(x)
+        print(data[head:tail])
+        temparray.append(data[head:tail])
+        #print("head :" + str(head))
+        #print("tail : "+ str(tail))
+        head=tail
+        tail=tail+n
+
+
+
     
     reference = [1, 1, 1, 1]
-    data = [20,20,6,20]
+    data=[1,1,1,1]
+
+
+    for x in range(4):
+        data[x]=(float  )(temparray[x][0:6]);
+    
+
+    #data = np.array(temparray)
+
+    print("DATA ARRAY!")
+    print(data)
+
 
 
 
@@ -168,5 +233,99 @@ if __name__ == '__main__':
     #data = [0.55] * len(data)  # Replace with 0.55
 
 
-reconstruct = EIT_reconstruct(data=data, reference=reference, use_ref=1, n_el=4)
-reconstruct.Reconstruct()
+
+
+
+
+def helloCallBack():
+    print("TESTING!")
+
+
+    #read values from arduino serial monitor.
+    
+    # Specify the correct serial port and baud rate
+    arduino = serial.Serial(port='COM15', baudrate=9600, timeout=1)  # Replace 'COM3' with your Arduino's port
+    time.sleep(2)  # Wait for Arduino to initialize
+
+
+
+    while True:
+    # Read input from the user
+    # Send the message to the Arduino
+
+        beginread=arduino.readline().decode().strip()
+        print("beginreadval",beginread)
+        if(beginread=="1"):
+
+    
+        # Read response from Arduino (if any)
+        
+            data2=arduino.readline().decode().strip()
+            data3=arduino.readline().decode().strip()
+            data4=arduino.readline().decode().strip()
+            data5=arduino.readline().decode().strip()
+        
+
+            print("data2", data2)
+            print("data3", data3)
+            print("data4", data4)
+            print("data5", data5)
+
+
+            f = open("data.txt", "w")
+            f.write(data2+"\n"+data3+"\n"+data4+"\n"+data5)
+            f.close()
+
+            reconstruct = EIT_reconstruct(data=data, reference=reference, use_ref=1, n_el=4)
+            reconstruct.Reconstruct()
+
+
+
+
+    
+
+
+# Close the serial connection
+    arduino.close()
+
+
+
+   
+
+
+
+
+
+
+
+
+
+from PIL import ImageTk, Image
+
+root = Tk()
+root.title('WELCOME TO PYEIT!!!!!')
+
+# Create and pack the button properly
+button = Button(root, text='Begin scan', width=25, command=helloCallBack)
+button.pack(pady=10)  # Add some padding for better UI
+
+
+
+
+# Create canvas
+canvas = Canvas(root, width=1000, height=500)
+canvas.pack()
+
+# Load image
+img = ImageTk.PhotoImage(Image.open("gui.jpg"))
+root.img = img  # Keep reference to prevent garbage collection
+canvas.create_image(20, 20, anchor=NW, image=img)
+
+#root.after(0, helloCallBack)  # Runs after the event loop starts
+
+root.mainloop()
+
+
+
+
+
