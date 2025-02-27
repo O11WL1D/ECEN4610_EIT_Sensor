@@ -231,6 +231,8 @@ def helloCallBack():
 
             reconstruct = EIT_reconstruct(data=data, reference=reference, use_ref=1, n_el=4)
             reconstruct.Reconstruct()
+        else:
+                print("beginreadval",beginread)
 
 
 

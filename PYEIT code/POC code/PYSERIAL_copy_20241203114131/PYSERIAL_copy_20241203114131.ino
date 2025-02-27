@@ -11,6 +11,13 @@ void setup() {
 void loop() {
 
     buttonState = digitalRead(buttonPin); 
+
+    Serial.println("SAMPLE TEST");
+    Serial.println("SAMPLE TEST");
+    Serial.println("ERROR MESSAGE");
+
+
+
      if (buttonState == LOW){
 
 
@@ -20,6 +27,14 @@ void loop() {
     Serial.println("-10.82145407");
     Serial.println("-10.75052789");
     Serial.println("-10.40157074");
+
+    Serial.println("MORE STUFF");
+    Serial.println("asdasdasd");
+    Serial.println("TESTING");
+
+
+
+
     
     delay(1000);
      }
