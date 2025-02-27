@@ -32,6 +32,8 @@ import os
 
 
 class EIT_reconstruct:
+
+    
     def __init__ (self, data, reference = None, use_ref = 0, n_el = 4, use_shape = 2):
         self.n_el = n_el  # nb of electrodes
         self.use_shape = use_shape
@@ -176,61 +178,10 @@ class EIT_reconstruct:
 if __name__ == '__main__':
    
 
-
-
-
-
-
-
-
-    
-    file = open('data.txt', 'r')
-    data = file.read()
-    
-    
-    n=12
-    n=n+1
-    
-
-    
-    
-    head=0
-    tail=n
-
-    print("START SEQENTIAL DATA READ")
-    temparray=[]
-
-    for x in range(4):
-        print(x)
-        print(data[head:tail])
-        temparray.append(data[head:tail])
-        #print("head :" + str(head))
-        #print("tail : "+ str(tail))
-        head=tail
-        tail=tail+n
-
-
-
     
     reference = [1, 1, 1, 1]
     data=[1,1,1,1]
 
-
-    for x in range(4):
-        data[x]=(float  )(temparray[x][0:6]);
-    
-
-    #data = np.array(temparray)
-
-    print("DATA ARRAY!")
-    print(data)
-
-
-
-
-    print("datalen")
-    print(len(data))
-    #data = [0.55] * len(data)  # Replace with 0.55
 
 
 
@@ -272,9 +223,11 @@ def helloCallBack():
             print("data5", data5)
 
 
-            f = open("data.txt", "w")
-            f.write(data2+"\n"+data3+"\n"+data4+"\n"+data5)
-            f.close()
+            data[0]=float(data2)
+            data[1]=float(data3)
+            data[2]=float(data4)
+            data[3]=float(data5)
+
 
             reconstruct = EIT_reconstruct(data=data, reference=reference, use_ref=1, n_el=4)
             reconstruct.Reconstruct()
