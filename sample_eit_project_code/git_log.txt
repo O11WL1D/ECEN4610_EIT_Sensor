@@ -1,0 +1,84 @@
+
+PS C:\Users\dudkr\OneDrive\Desktop\lab 2> git log --graph
+* commit de267ac8bb2dedfdc229c75bc86a62bde4a5bb7f (HEAD -> main, origin/main)
+| Author: O11WL1D <inksdomain@gmail.com>
+| Date:   Thu Jan 23 21:44:37 2025 +0000
+|
+|     finished-git-helper-program
+|
+* commit b98d61904aeee73b35b091a369d41fccd9f90a02
+| Author: O11WL1D <inksdomain@gmail.com>
+| Date:   Thu Jan 23 21:41:57 2025 +0000
+|
+|     yep
+|
+* commit 306751cc4d6e58511ce01108e67206476d5b6e9d
+| Author: O11WL1D <inksdomain@gmail.com>
+| Date:   Thu Jan 23 14:21:04 2025 -0700
+|
+|     adding in checkout confirmation file
+|
+*   commit 3185188b6c99702a28b0dcf7cf902cb1c72d08b8
+|\  Merge: dfb7a68 cdb010f
+| | Author: O11WL1D <49104271+O11WL1D@users.noreply.github.com>
+| | Date:   Thu Jan 23 14:01:34 2025 -0700
+| |
+| |     Merge pull request #1 from CU-CSCI3308-Spring2025/newbranch
+| |
+| |     Newbranch return as 1
+| |
+| *   commit cdb010fdf1a6c959e5d42215f4ea0ea337c119d8
+| |\  Merge: 26da5a4 dfb7a68
+| |/  Author: O11WL1D <inksdomain@gmail.com>
+|/|   Date:   Thu Jan 23 13:57:02 2025 -0700
+| |
+| |       keeping 1 as the return value
+| |
+* | commit dfb7a68f7c5cdb4a6a55bd9ef6dc03edcc12e9dc
+| | Author: O11WL1D <inksdomain@gmail.com>
+| | Date:   Thu Jan 23 13:53:39 2025 -0700
+| |
+| |     adding in vscode workspace
+| |
+* | commit 6b5bca94571ad375a68504eae2b39fc88701c7f2
+| | Author: O11WL1D <inksdomain@gmail.com>
+| | Date:   Thu Jan 23 13:52:31 2025 -0700
+| |
+| |     Version - main : 2
+| |
+* | commit 5c4dc42e339d56bd69d8b47520bb1d81574afa54
+| | Author: O11WL1D <inksdomain@gmail.com>
+| | Date:   Thu Jan 23 13:27:18 2025 -0700
+| |
+| |     updated team info
+| |
+| * commit 26da5a45a019a94a9d54bdbc4824643156e23be5
+| | Author: O11WL1D <inksdomain@gmail.com>
+| | Date:   Thu Jan 23 13:21:09 2025 -0700
+| |
+| |     Version - <Person1> : <return value>
+| |
+| * commit e813ff25f97f7b4d7d30b36997b9ac64cf75e14f
+|/  Author: O11WL1D <inksdomain@gmail.com>
+|   Date:   Thu Jan 23 13:19:20 2025 -0700
+|
+|       updated readme.md with team details
+|
+* commit afdcc9ed6b7fabd771f7b82840c8f22e6b3f822f
+| Author: github-classroom[bot] <66690702+github-classroom[bot]@users.noreply.github.com>
+| Author: github-classroom[bot] <66690702+github-classroom[bot]@users.noreply.github.com>
+| Date:   Thu Jan 23 20:13:01 2025 +0000
+| 
+|     add deadline
+| 
+* commit 11ac68f08522df2cf2e3c659a0d339053fccb939
+| Author: SreeshaNath <31390313+SreeshaNath@users.noreply.github.com>
+| Date:   Tue Jan 21 18:52:06 2025 -0700
+| 
+|     Update README.md
+| 
+* commit 19c19cb976f21eb3cce93ef9a0039806894a12a8
+  Author: github-classroom[bot] <66690702+github-classroom[bot]@users.noreply.github.com>
+  Date:   Wed Jan 22 01:09:29 2025 +0000
+  
+      Initial commit

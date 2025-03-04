@@ -188,7 +188,7 @@ class EIT_reconstruct:
         self.reference = reference
         self.use_ref = use_ref
         self.object_position = object_position  # Store object position in the instance
-        
+
 
 
 
@@ -417,7 +417,7 @@ if __name__ == '__main__':
     print("START SEQENTIAL DATA READ")
     temparray=[]
 
-    for x in range(4):
+    for x in range(12):
         print(x)
         print(data[head:tail])
         temparray.append(data[head:tail])
@@ -453,6 +453,11 @@ if __name__ == '__main__':
         data[i] = conductivity
 
     reference = np.mean(data) * np.ones_like(data)
+
+    reference = [1.809055, 0.8100247, 0.3967621, 0.3232599, 0.2467575, 0.2371947, 0.2000686, 0.2242568, 0.2328821, 0.3315101, 0.4357633, 0.7938993, 1.722053]
+    data = [1.650988, 0.8212751, 0.4367009, 0.3624485, 0.2718833, 0.2516327, 0.2049438, 0.2233193, 0.2266944, 0.3198848, 0.4170127, 0.7592107, 1.647988] 
+
+
 
     reconstruct = EIT_reconstruct(data=data, reference=reference, use_ref=1, n_el=4, object_position=object_position)
     reconstruct.Reconstruct()

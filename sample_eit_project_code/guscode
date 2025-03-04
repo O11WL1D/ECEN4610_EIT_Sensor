@@ -1,0 +1,174 @@
+from __future__ import absolute_import, division, print_function
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pyeit.eit.jac as jac
+import pyeit.mesh as mesh
+from pyeit.eit.fem import EITForward
+from pyeit.eit.interp2d import sim2pts
+from pyeit.mesh.shape import thorax
+import pyeit.eit.protocol as protocol
+from pyeit.mesh.wrapper import PyEITAnomaly_Circle
+from pyeit.eit.protocol import create
+
+import average
+import random
+from matplotlib import colors
+
+# Functions:
+# Define custom parser for RF-EIT
+def custom_rf_parser(numElectrodes):
+    exc_mat = [[i] for i in range(numElectrodes)] # Transmitting LoRa modules
+    meas_mat = [] # All other LoRa modules as receivers
+
+    for tx in range(numElectrodes):
+        # Measure from all LoRa modules except the transmitter
+        receivers = [[tx, rx] for rx in range(numElectrodes) if rx != tx]
+        meas_mat.extend(receivers)
+    
+    return exc_mat, meas_mat
+
+# Generate random position of anomaly
+def gen_rand_position():
+    while True:
+        x, y = np.random.uniform(-1, 1, 2)
+        if x**2 + y**2 <= 1:
+            return np.array([x, y])
+
+# Generate RSSI readings
+def gen_rssi_readings(anomalyPresent, numElectrodes, anomalyPosition=None, meshObj=None):
+    rssiReadings = [[] for _ in range(numElectrodes)]
+    if anomalyPresent == False:
+        for transceiver in range(numElectrodes):
+            for receiver in range(numElectrodes):
+                if transceiver == receiver:
+                    continue
+                rssiReadings[receiver].append(random.uniform(-55.0, -45.0))
+
+        return rssiReadings
+    
+    nodePositions = meshObj.node
+    electrodeIndices = meshObj.el_pos
+    electrodePositions = nodePositions[electrodeIndices]
+    electrodePositions = np.delete(electrodePositions, 2, axis=1)
+    distances = np.linalg.norm(electrodePositions - anomalyPosition, axis=1)
+
+    for transceiver in range(numElectrodes):
+        transceiverPosition = electrodePositions[transceiver]
+        for receiver in range(numElectrodes):
+            if transceiver == receiver:
+                continue
+            if distances[receiver] < 1:
+                rssiReadings[receiver].append(random.uniform(-80.0, -70.0))
+            else:
+                rssiReadings[receiver].append(random.uniform(-70.0, -50.0))
+    
+    return rssiReadings
+
+
+
+
+
+#########################################################################################################################################################################################################
+##################################################################################### Simulation ########################################################################################################
+#########################################################################################################################################################################################################
+'''
+# 0. Build mesh (circle of where EIT occurs)
+numElectrodes = 6 # Change Accordingly
+meshObj = mesh.create(numElectrodes, h0=0.1)
+
+# Extract node information
+pts = meshObj.node
+tri = meshObj.element
+x, y = pts[:, 0], pts[:, 1]
+
+# print("Sizes of x and y arrays:", x.size, "and", y.size)
+# print("These are x points: ", x)
+# print("These are y points: ", y)
+# print("This is tri: ", tri)
+
+# 1. Setup object that will be placed within EIT module
+anomaly = PyEITAnomaly_Circle(center=[0, 0], r=0.1, perm=10.0)
+objectPosition = anomaly.center
+meshNew = mesh.set_perm(meshObj, anomaly=anomaly, background=1.0)
+
+# 2. Setup EIT scan conditions
+protocolObj = protocol.create(numElectrodes, dist_exc=0, step_meas=1, parser_meas=custom_rf_parser)
+# Calculate simulated data
+fwd = EITForward(meshObj, protocolObj)
+baselineMeasurments = fwd.solve_eit()
+anomalyMeasurements = fwd.solve_eit(perm=meshNew.perm)
+
+# 3. Solve the inverse problem using JAC
+eit = jac.JAC(meshObj, protocolObj)
+eit.setup(p=0.5, lamb=0.01, method="kotre", perm=1, jac_normalized=True)
+solveInv = eit.solve(anomalyMeasurements, baselineMeasurments, normalize=True)
+physicalPts = sim2pts(pts, tri, np.real(solveInv))
+
+# Plot EIT reconstruction
+fig, ax1 = plt.subplots(1, 1, constrained_layout=True, figsize=(6, 6))
+
+# Reconstructed conductivity map
+ax1.set_title(r"Reconstituted $\Delta$ Conductivities")
+ax1.axis("equal")
+ax1.tripcolor(
+    pts[:, 0],
+    pts[:, 1],
+    tri,
+    np.real(solveInv),
+    shading="flat",
+    alpha=1,
+    cmap=plt.cm.twilight_shifted,
+    norm=colors.CenteredNorm(),
+)
+
+# Annotate electrodes
+x, y = pts[:, 0], pts[:, 1]
+for i, e in enumerate(meshObj.el_pos):
+    ax1.annotate(str(i + 1), xy=(x[e], y[e]), color="blue")
+
+fig.colorbar(ax1.tripcolor(
+    pts[:, 0],
+    pts[:, 1],
+    tri,
+    np.real(solveInv),
+    shading="flat",
+    alpha=1,
+    cmap=plt.cm.twilight_shifted,
+    norm=colors.CenteredNorm(),
+))
+
+# Plot electrodes as red dots
+ax1.scatter(pts[meshObj.el_pos, 0], pts[meshObj.el_pos, 1], color="red", label="Electrodes")
+
+# Plot object position as a green dot
+ax1.scatter(
+    objectPosition[0],
+    objectPosition[1],
+    color="green",
+    label="Object Position",
+    s=100,
+)
+ax1.legend()
+plt.show()
+'''
+#########################################################################################################################################################################################################
+##################################################################################### Simulation w/ Readings ############################################################################################
+#########################################################################################################################################################################################################
+
+# 0. Build mesh (circle of where EIT occurs)
+numElectrodes = 6 # Change Accordingly
+meshObj = mesh.create(numElectrodes, h0=0.1)
+
+# Extract node information
+pts = meshObj.node
+tri = meshObj.element
+x, y = pts[:, 0], pts[:, 1]
+
+# 1. Conduct measurements without an anomaly
+testOne = gen_rssi_readings(False, numElectrodes)
+
+# 2. Conduct measurements with anomaly present
+anomalyPosition = gen_rand_position()
+
+testTwo = gen_rssi_readings(True, numElectrodes, anomalyPosition, meshObj)
