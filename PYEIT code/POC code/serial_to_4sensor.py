@@ -204,8 +204,15 @@ def helloCallBack():
     # Read input from the user
     # Send the message to the Arduino
 
-        beginread=arduino.readline().decode().strip()
-        print("beginreadval",beginread)
+        beginread=arduino.readline().decode('utf-8', errors='ignore').strip()
+
+        print(beginread)
+
+        print("SENDING SCAN BREAK SIGNAL")
+        #arduino.write("2".encode()) 
+
+        arduino.write(b'2\n') 
+
         if(beginread=="1"):
 
     
@@ -229,10 +236,19 @@ def helloCallBack():
             data[3]=float(data5)
 
 
+            print("SENDING SCAN BREAK SIGNAL")
+            #arduino.write("2".encode()) 
+
+            arduino.write(b'2\n') 
+
+            
+
+
+
             reconstruct = EIT_reconstruct(data=data, reference=reference, use_ref=1, n_el=4)
             reconstruct.Reconstruct()
         else:
-                print("beginreadval",beginread)
+                print(beginread)
 
 
 
