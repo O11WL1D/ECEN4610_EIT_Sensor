@@ -96,9 +96,17 @@ void setup() {
 }
 
 
-
+int option1=4;
+int toggle=1;
 
 void loop(){
+
+
+
+  
+
+
+ 
 
   int receivedRSSI[4]; //Collects the dBm data from each of the four LoRa sensors
  
@@ -137,7 +145,12 @@ void loop(){
   Serial.print("\n");
 
   //Print the quadrant location of the object
-  printQuadrant(receivedRSSI);
+  printQuadrant(receivedRSSI, receivedRSSI,option1);
+
+  if(option1>0){
+    option1=option1-1;
+  }
+
 }
 
 
@@ -177,12 +190,42 @@ int receive(RH_RF95 &receiveLoRa) {
 
 
 
-void printQuadrant(int sensorData[4]) {
-  // Reference arrays for each quadrant
+
   int NW[4] = {-19, -4, -13, -11};
   int NE[4] = {-13, -9, -16, -2};
   int sE[4] = {-16, -13, -11, -3};
   int SW[4] = {-15, -4, -16, -12};
+
+
+
+
+
+void printQuadrant(int sensorData[4], int calibrateData[4], int option) {
+  // Reference arrays for each quadrant
+
+
+if(option==1){
+     NW[4] = calibrateData;
+     return;
+}
+
+if(option==2){
+    NE[4] = calibrateData;
+    return;
+}
+
+if(option==3){
+   sE[4] = calibrateData;
+   return;
+}
+
+if(option==4){
+   SW[4] = calibrateData;
+   return;
+}
+
+
+
 
   // Calculate total difference (error) for each quadrant
   int diffNW = 0;
