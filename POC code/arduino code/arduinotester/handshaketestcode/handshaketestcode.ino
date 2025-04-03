@@ -11,9 +11,15 @@ void loop() {
 
 
 
+   String data = Serial.readStringUntil('\n'); 
+
+    Serial.print("ARD:");
+    Serial.println(data); // Echo it back
+
+  String data1=String(data);
 
 
-
+  if(data1=="2"){
       Serial.println("ARD:TESTING!");
 
   
@@ -23,31 +29,22 @@ void loop() {
   Serial.println("ARD:TESTING3!");
 
 
-  
+  delay(1000);
 
 
   Serial.println("1");
-
-
-  long randNumber = random(100);  // Generate a random number between 0 and 99
-  String str = String(randNumber);
-  Serial.println(str);
-
-  randNumber = random(100);  // Generate a random number between 0 and 99
-  str = String(randNumber);
-  Serial.println(str);
-
-
-      Serial.println("12");
-       Serial.println("12");
-       
-           Serial.println("10");
+    Serial.println("10");
      Serial.println("12");
       Serial.println("12");
        Serial.println("12");
 
 
 
+
+
+  }
+
+   
 
 
 
