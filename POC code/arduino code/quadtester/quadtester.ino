@@ -203,23 +203,28 @@ int receive(RH_RF95 &receiveLoRa) {
 void printQuadrant(int sensorData[4], int calibrateData[4], int option) {
   // Reference arrays for each quadrant
 
+  int delaytime=10;
 
 if(option==1){
+    delay(delaytime);
      NW[4] = calibrateData;
      return;
 }
 
 if(option==2){
+  delay(delaytime);
     NE[4] = calibrateData;
     return;
 }
 
 if(option==3){
+  delay(delaytime);
    sE[4] = calibrateData;
    return;
 }
 
 if(option==4){
+  delay(delaytime);
    SW[4] = calibrateData;
    return;
 }
