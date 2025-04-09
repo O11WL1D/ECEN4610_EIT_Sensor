@@ -3,14 +3,10 @@ from __future__ import absolute_import, division, print_function
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import numpy as np
-import pyeit.eit.bp as bp
-import pyeit.eit.protocol as protocol
-import pyeit.mesh as mesh
-from pyeit.eit.fem import EITForward
-from pyeit.mesh import shape, distmesh, plot_mesh
-from pyeit.mesh.wrapper import PyEITAnomaly_Circle
 
-import average  #Untuk merata-rata satu data aja
+
+
+
 
 import serial
 import time
@@ -24,6 +20,22 @@ import os
 
 
 
+from PIL import Image
+
+
+
+
+
+import cv2
+
+
+
+
+
+img1 = Image.open("q1.jpg")
+img2 = Image.open("q2.jpg")
+img3 = Image.open("q3.jpg")
+img4 = Image.open("q4.jpg")
 
 
 
@@ -55,6 +67,7 @@ def helloCallBack():
     time.sleep(2)  # Wait for Arduino to initialize
 
 
+    toggle=1
 
     while True:
     # Read input from the user
@@ -64,48 +77,92 @@ def helloCallBack():
 
         print(beginread)
 
-        print("SENDING SCAN BREAK SIGNAL")
-        #arduino.write("2".encode()) 
 
-        arduino.write(b'2\n') 
+
+
+        if(toggle==1):
+            print("SENDING CALIBRATE SIGNAL")
+            arduino.write(b'1\n') 
+            toggle=0
+            time.sleep(3)
+
+        
+
+
+        if(toggle==0):
+            print("SENDING SCAN SIGNAL")
+            arduino.write(b'2\n') 
+        
+
+
+
+
+
+        allfalse=1
 
         if(beginread=="1"):
 
     
         # Read response from Arduino (if any)
         
-            data2=arduino.readline().decode().strip()
-            data3=arduino.readline().decode().strip()
-            data4=arduino.readline().decode().strip()
-            data5=arduino.readline().decode().strip()
+
+            img1.show()
+            #cv2.imshow("Image", img1)
+         
+            allfalse=0
+
+            iinput = input("type anything to continue to perform another scan")
+
+              
+ 
+
+
+
+        if(beginread=="2"):
+
+    
+        # Read response from Arduino (if any)
         
+   
+            
+            img2.show()
+            allfalse=0
+            iinput = input("type anything to continue to perform another scan")
 
-            print("data2", data2)
-            print("data3", data3)
-            print("data4", data4)
-            print("data5", data5)
+              
+    
 
+        if(beginread=="3"):
 
-            data[0]=float(data2)
-            data[1]=float(data3)
-            data[2]=float(data4)
-            data[3]=float(data5)
-
-
-            print("SENDING SCAN BREAK SIGNAL")
-            #arduino.write("2".encode()) 
-
-            arduino.write(b'2\n') 
-
+    
+        # Read response from Arduino (if any)
         
+     
+            img3.show()
+            allfalse=0
+            iinput = input("type anything to continue to perform another scan")
+
+              
+     
+
+        if(beginread=="4"):
+
+    
+        # Read response from Arduino (if any)
+        
+        
+            img4.show()
+            allfalse=0
+            iinput = input("type anything to continue to perform another scan")
+  
+
+
+        if(allfalse==0):
+            print(beginread)
+            
+ 
 
        
-       
-        else:
-                print(beginread)
-
-
-
 
     
 

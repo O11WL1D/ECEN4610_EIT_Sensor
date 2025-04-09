@@ -19,6 +19,8 @@ void loop() {
   String data1=String(data);
 
 
+
+
   if(data1=="2"){
       Serial.println("ARD:TESTING!");
 
